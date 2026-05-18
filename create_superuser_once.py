@@ -1,7 +1,7 @@
 import os
 import django
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "expense_tracker.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "expensetracker.settings")
 
 django.setup()
 

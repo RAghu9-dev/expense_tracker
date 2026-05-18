@@ -25,9 +25,12 @@ SECRET_KEY = 'django-insecure-h3$07*bv+e2(^5-$cc1j#ku1wcrpe0wbo24p=fa#%kuj%-u@yh
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["127.0.0.1","localhost","expense-tracker-0zgq.onrender.com",]
 
 
+render_external_hostname = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
+if render_external_hostname:
+    ALLOWED_HOSTS.append(render_external_hostname)
 # Application definition
 
 INSTALLED_APPS = [
@@ -75,15 +78,17 @@ WSGI_APPLICATION = 'expensetracker.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
+import os
+import dj_database_url
+from pathlib import Path
+import dj_database_url
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'expense_tracker',      # The name of your database
-        'USER': 'postgres',      # Your PostgreSQL username (e.g., 'postgres')
-        'PASSWORD': 'Raghu@123', # Your database password
-        'HOST': 'localhost',         # Or the IP address of your DB server
-        'PORT': '5432',              # Default PostgreSQL port
-    }
+    "default": dj_database_url.config(
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+        conn_max_age=600,
+        ssl_require=bool(os.environ.get("DATABASE_URL")),
+    )
 }
 
 
