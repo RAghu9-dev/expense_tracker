@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block start %}
+
+<div class="login-box">
+    <h3 class="login-title">Login Page</h3>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="input-group">
+            <label for="username">Username</label>
+            <input 
+                type="text" 
+                name="username" 
+                id="username" 
+                placeholder="Username..."
+            >
+            <small>Unique username is required</small>
+        </div>
+
+        <div class="input-group">
+            <label for="password">Password</label>
+            <input 
+                type="password" 
+                name="password" 
+                id="password" 
+                placeholder="Password..."
+            >
+        </div>
+
+        <p class="register-text">
+            Don't have an account 
+            <a href="{% url 'register_view' %}">Register</a>
+        </p>
+
+        <button class="login-btn" type="submit">Login</button>
+    </form>
+</div>
+
+{% endblock %}
