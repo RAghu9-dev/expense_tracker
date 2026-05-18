@@ -75,10 +75,15 @@ WSGI_APPLICATION = 'expensetracker.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'expense_tracker',      # The name of your database
+        'USER': 'postgres',      # Your PostgreSQL username (e.g., 'postgres')
+        'PASSWORD': 'Raghu@123', # Your database password
+        'HOST': 'localhost',         # Or the IP address of your DB server
+        'PORT': '5432',              # Default PostgreSQL port
     }
 }
+
 
 
 # Password validation
@@ -115,4 +120,20 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = 'static/'
+
+
+import os
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / "tracker" / "public/static",
+]
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
