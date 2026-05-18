@@ -9,8 +9,9 @@ https://docs.djangoproject.com/en/6.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
-
+import os
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,10 +28,16 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["127.0.0.1","localhost","expense-tracker-0zgq.onrender.com",]
 
-
 render_external_hostname = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
 if render_external_hostname:
     ALLOWED_HOSTS.append(render_external_hostname)
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://expense-tracker-0zgq.onrender.com",
+]
+
+if render_external_hostname:
+    CSRF_TRUSTED_ORIGINS.append(f"https://{render_external_hostname}")
 # Application definition
 
 INSTALLED_APPS = [
@@ -78,10 +85,6 @@ WSGI_APPLICATION = 'expensetracker.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-import os
-import dj_database_url
-from pathlib import Path
-import dj_database_url
 
 DATABASES = {
     "default": dj_database_url.config(
@@ -129,19 +132,16 @@ USE_TZ = True
 
 
 
-import os
-from pathlib import Path
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE='whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 STATICFILES_DIRS = [
     BASE_DIR / "tracker" / "public/static",
 ]
 
-STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
