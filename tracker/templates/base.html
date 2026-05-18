@@ -20,8 +20,12 @@
     
 </head>
 
-<body>
-     <h1 style="display: grid; place-items: center; margin-top: 50px; color: rgb(225, 64, 64);">Expense Tracker</h1>
+<body style="background-image: url('{% static 'images/expensetracking.jpg' %}');
+             background-size: cover;
+             background-repeat: no-repeat;
+             background-position: center;
+             min-height: 100vh;">>
+     <h1 style="display: grid; place-items: center; margin-top: 50px; color: rgb(24, 25, 28);">Expense Tracker</h1>
     {% block start %}
    
     {% endblock %}
